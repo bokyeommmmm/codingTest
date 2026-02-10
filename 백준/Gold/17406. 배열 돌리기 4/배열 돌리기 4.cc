@@ -15,13 +15,13 @@ void rotate(vector<vector<int>> &arr1);
 
 void dfs(int cnt)
 {
-	if (cnt == K) {
-		vector<vector<int>>arr1 = arr;
+	if (cnt == K) {		//회전 갯수만큼 쌓았으면
+		vector<vector<int>>arr1 = arr; //복사해두고
 		rotate(arr1);
 		return;
 	}
 
-	for (int i = 0; i < K; i++)
+	for (int i = 0; i < K; i++)			// 무작위 조합 만들기
 	{
 		if (visited[i] == 0) {
 			idx.push(i);
@@ -32,7 +32,7 @@ void dfs(int cnt)
 		}
 	}
 }
-void calc(vector<vector<int>>&arr1)
+void calc(vector<vector<int>>&arr1)   //합 구하기.
 {
 	int sum = 0;
 	for (int i = 1; i <= N; i++)
@@ -45,10 +45,10 @@ void calc(vector<vector<int>>&arr1)
 		sum = 0;
 	}
 }
-void rotate(vector<vector<int>> &arr1)
+void rotate(vector<vector<int>> &arr1) //회전. 
 {
 
-	stack<int> index = idx;
+	stack<int> index = idx;            //얘도 복사해와서 
 	while (!index.empty())
 	{
 		int temp = index.top();
@@ -62,22 +62,22 @@ void rotate(vector<vector<int>> &arr1)
 		{
 			int temp = arr1[r - i][c + i];
 
-			for (int j = -i; j < i; j++)
+			for (int j = -i; j < i; j++)  //상단 좌 -> 우로 밀기 
 			{
 				arr1[r - i][c - j] = arr1[r - i][c - j - 1];
 			}
 
-			for (int j = -i; j < i; j++)
+			for (int j = -i; j < i; j++) //왼편 아래 -> 위 밀기
 			{
 				arr1[r + j][c - i] = arr1[r + j + 1][c - i];
 			}
 
-			for (int j = -i; j < i; j++)
+			for (int j = -i; j < i; j++)   //하단 우-> 좌 밀기
 			{
 				arr1[r + i][c + j] = arr1[r + i][c + j + 1];
 			}
 
-			for (int j = -i; j < i; j++)
+			for (int j = -i; j < i; j++) //오른편 위 -> 아래 밀기
 			{
 				arr1[r - j][c + i] = arr1[r - j - 1][c + i];
 			}
