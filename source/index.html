@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+    <style type="text/css">
+
+        .delete { display: none; }
+        .lists:hover { color: #999; text-decoration:line-through; cursor: pointer; }
+  </style>
+  <!-- 예제코드 따라 display none으로 삭제 해 보려 했습니다.  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+  <script type="text/javascript">
+  $(document).on("click", "button", function() {
+    $("#content").attr("class", $(this).text());
+  });
+  </script>
+</head>
+
+<body>
+  <h1>Todo List</h1>
+  <div>전체 : 0개 / 완료 0개</div>
+  <div>
+    <input type="text" placeholder="할 일을 입력하세요" id="Todoid"><button id="addBtn" >추가</button>    
+  </div>
+  <div >
+    <button style="margin: 0px 10px; background-color: green;">전체</button>
+    <button style="margin: 0px 10px;">진행중</button>
+    <button style="margin: 0px 10px;">완료</button>
+  </div>
+  <div>
+    <ul id="Todolist">
+  </div>
+  </div>
+  <button style="background-color: red;">전체 삭제</button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById("addBtn").addEventListener('click', function () {
+        let Todo = document.getElementById('Todolist');
+        let TodoContent = document.getElementById("Todoid")
+        let title = document.createElement('li'); //li로 추가하고자 했습니다. 
+        title.setAttribute('id','content');       //삭제하기 위해 해봤습니다. 상단 할 일만 삭제되는 이슈. 
+        title.setAttribute('class','lists');      //텍스트 클릭시 체크하기 위한 속성. 
+        let msg = document.createTextNode(TodoContent.value); 
+        let btn = document.createElement('button');
+        let del = document.createTextNode('delete');
+        btn.appendChild(del);
+        if (TodoContent.value != "") {  //입력 되었을때만 
+          title.appendChild(msg);
+          title.appendChild(btn);
+          Todo.appendChild(title);
+        }
+        else {
+          alert("내용을 입력하세요");
+        }
+        localStorage.data = TodoContent.value; //로컬스토리지 저장 하나만 되는 이슈
+      })
+      
+    })
+  </script>
+</body>
+
+</html>
