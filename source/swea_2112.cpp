@@ -75,7 +75,7 @@ int main()
 				cin >> cell[i][j];
 			}
 		}
-		if (test() != true) //첨에 통과가 아니면 약품넣자잉
+		if (test() != true) //첨에 통과가 아니면 약품넣자잉  
 			dfs(0, 0);
 		else
 			res = 0;
