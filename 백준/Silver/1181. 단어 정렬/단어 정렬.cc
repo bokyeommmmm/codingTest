@@ -21,13 +21,13 @@ int main()
 	}
 	for (int i = 1; i <= 50; i++)
 	{
-		for (auto it = arr[i].begin(); it != arr[i].end(); ++it)
+		for (const string &s : arr[i])
 		{
-			cout << *it << "\n";
+			cout <<s << "\n";
 		}
 
 	}
-
+		
 
 	return 0;
 }
