@@ -1,27 +1,28 @@
 #include <iostream>
-#include <vector>
+#include<vector>
+
 using namespace std;
 
 int N, M;
-vector<int> path;
-
+vector<int>arr;
+vector<int>res;
 void dfs(int cnt)
 {
 	if (cnt == M)
 	{
 		for (int i = 0; i < M; i++)
 		{
-			cout << path[i] << " ";
+			cout << res[i] << " ";
 		}
 		cout << "\n";
 		return;
 	}
-
 	for (int i = 1; i <= N; i++)
 	{
-		path.push_back(i);   
-		dfs(cnt + 1);        
-		path.pop_back();     
+		
+		res.push_back(i);
+		dfs(cnt + 1);
+		res.pop_back();
 	}
 }
 
@@ -31,6 +32,11 @@ int main()
 	cin.tie(NULL);
 
 	cin >> N >> M;
+	arr.assign(N + 1, 0);
+	for (int i = 1; i <= N; i++)
+	{
+		arr[i] = i;
+	}
 	dfs(0);
 	return 0;
 }
