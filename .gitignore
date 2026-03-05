@@ -137,3 +137,4 @@ buildNumber.properties
 .temp
 *.exe
 tasks.json
+test.cpp
