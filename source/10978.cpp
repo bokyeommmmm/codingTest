@@ -1,28 +1,53 @@
 #include <iostream>
-#include <vector>
+#include <string>
+
 using namespace std;
+
+bool isDesc(int n)
+{
+    string str = to_string(n);
+    for (int i = 0; i < str.size() - 1; i++)
+    {
+        if (str[i] - '0' <= str[i + 1] - '0')
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 int main()
 {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<long long> dp(21, 0);
-
-    dp[1] = 0;
-    dp[2] = 1;
-    for (int i = 3; i <= 20; i++)
-    {
-        dp[i] = (i - 1) * (dp[i - 1] + dp[i - 2]);
-    }
     int N;
     cin >> N;
-    for (int i = 0; i < N; i++)
+    int cnt = 0;
+    int num = 0;
+    if (N < 10)
     {
-        int temp;
-        cin >> temp;
-        cout << dp[temp] << "\n";
+        cout << N;
+        return 0;
     }
+
+    else
+    {
+        while (cnt < N)
+        {
+            num++;
+            if (isDesc(num))
+            {
+                cnt++;
+            }
+            if (num == 1000000000)
+            {
+                cout << -1;
+                return 0;
+            }
+        }
+    }
+    cout << num;
 
     return 0;
 }
