@@ -10,7 +10,7 @@ int res;
 vector<vector<int>>board;
 queue<pair<int, int>>q;
 vector<int>arr; //순열 
-void calc()
+int calc()
 {
 
 	int sum = 0;
@@ -22,7 +22,7 @@ void calc()
 				sum++;
 		}
 	}
-	res = min(res, sum);
+	return sum;
 }
 void down() //붕뜬놈들 내리기. 
 {
@@ -111,12 +111,13 @@ void findTarget()
 		bomb(r, c, power); //연쇄 ㄱㄱ
 		down(); //밑으로내리고 
 	}
-	calc(); //최종계산 
+	res = min(res,calc()); //최종계산 
 	board = temp; //원복까지. 
 }
 
 void dfs1(int cnt)
 {
+	if (res == 0) return;
 	if (cnt == N)
 	{
 		findTarget();
