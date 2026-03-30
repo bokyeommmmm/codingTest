@@ -23,27 +23,6 @@ void bfs()
 			int nc = c + dc[i];
 			if (nr < 0 || nc < 0 || nr >= N || nc >= M)
 				continue;
-			if (board[nr][nc] != 0) //땅아니면패스
-				continue;
-			board[nr][nc] = board[r][c];
-			q.push({ nr,nc });
-		}
-
-	}
-}
-void bfs2()
-{
-	while (!q.empty())
-	{
-		int r = q.front().first;
-		int c = q.front().second;
-		q.pop();
-		for (int i = 0; i < 4; i++)
-		{
-			int nr = r + dr[i];
-			int nc = c + dc[i];
-			if (nr < 0 || nc < 0 || nr >= N || nc >= M)
-				continue;
 			if (visited[nr][nc] !=-1 ) //가봤으면패스
 				continue;
 			if (board[nr][nc] != board[r][c])
@@ -76,20 +55,6 @@ int main()
 
 		}
 	}
-	int idx = 1;
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < M; j++)
-		{
-			if (board[i][j] == 1)
-			{
-				q.push({ i,j });
-				board[i][j] = idx;
-				bfs();
-				idx++;
-			}
-		}
-	}
 	for (int i = 0; i < N; i++)
 	{
 		for (int j = 0; j < M; j++)
@@ -99,7 +64,7 @@ int main()
 				visited.assign(N, vector<int>(M, -1));
 				visited[i][j] = 0;
 				q.push({ i,j });
-				bfs2();
+				bfs();
 			}
 		}
 	}
