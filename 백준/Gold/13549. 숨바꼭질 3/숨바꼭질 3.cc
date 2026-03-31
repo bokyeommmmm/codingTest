@@ -1,57 +1,68 @@
 #include <iostream>
-#include<vector>
+#include <vector>
 #include<queue>
+#include<deque>
 using namespace std;
 
 int N, K;
+deque<int>q;
 vector<int>visited;
-queue<int>q;
-int MAX = 100001;
+vector<int>res;
 void bfs()
 {
 	while (!q.empty())
 	{
-		int now = q.front();
-		q.pop();
 
-		if (now == K)
+		int cur = q.front();
+		q.pop_front();
+
+		if (visited[K] != -1 && visited[cur] > visited[K])
+			break;
+		if (cur == K)
 		{
-			cout << visited[now];
+			res[visited[K]]++;
 			return;
 		}
 
-		if (now * 2 <= MAX && visited[now * 2] == -1)
+		int next = cur * 2;
+		if (next<=100000 && (visited[next] == -1 || visited[next] >= visited[cur] + 1)) //방문한적없으면 
 		{
-			visited[now * 2] = visited[now];
-			q.push(now * 2);
-		}
+			visited[next] = visited[cur];
+			q.push_front(next);
 
-		if (now - 1 >= 0 && visited[now - 1] == -1)
-		{
-			visited[now - 1] = visited[now] + 1;
-			q.push(now - 1);
 		}
-		if (now + 1 <= MAX && visited[now + 1] == -1)
+		next = cur - 1;
+		if (next >= 0 && (visited[next] == -1 || visited[next] >= visited[cur] + 1))
 		{
-			visited[now + 1] = visited[now] + 1;
-			q.push(now + 1);
-		}
+			visited[next] = visited[cur] + 1;
+			q.push_back(next);
 
+		}
+		next = cur + 1;
+		if (next <= 100000 && (visited[next] == -1||visited[next]>=visited[cur]+1) ) //방문한적없거나 
+		{
+			visited[next] = visited[cur]+1;
+
+			q.push_back(next);
+
+		}
 	}
-
 }
+
 
 int main()
 {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cin >> N >> K;
-	visited.assign(MAX + 1, -1);
+	visited.assign(100001, -1);
+	res.assign(100001,0);
 
 	visited[N] = 0;
-	q.push(N);
-
+	q.push_back(N);
 	bfs();
 
+
+	cout << visited[K];
 	return 0;
 }
