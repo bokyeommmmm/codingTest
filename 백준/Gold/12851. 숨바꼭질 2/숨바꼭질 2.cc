@@ -14,9 +14,12 @@ void bfs()
 
 		int cur = q.front();
 		q.pop();
+		if (visited[K] != -1 && visited[cur] > visited[K])
+			break;
 		if (cur == K)
 		{
 			res[visited[K]]++;
+			continue;
 		}
 
 		int next = cur * 2;
