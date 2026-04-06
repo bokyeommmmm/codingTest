@@ -1,44 +1,53 @@
 #include <iostream>
-#include <algorithm>
+#include <vector>
+#include<algorithm>
 using namespace std;
 
 int T;
-int price[4], plan[13];
+vector<int>prices;
+vector<int>plans;
 int res;
-
-void dfs(int month, int sum)
+void init()
 {
-    if (sum >= res) return;
-
-    if (month >= 12) {
-        res = min(res, sum);
-        return;
-    }
-    
-    int cost1 = min(plan[month + 1] * price[0], price[1]);
-    dfs(month + 1, sum + cost1);
-
-    dfs(month + 3, sum + price[2]);
+	prices.clear();
+	plans.clear();
+	for (int i = 0; i < 4; i++)
+	{
+		int temp;
+		cin >> temp;
+		prices.push_back(temp);
+	}
+	for (int i = 0; i < 12; i++)
+	{
+		int temp;
+		cin >> temp;
+		plans.push_back(temp);
+	}
+	res = prices[3]; //일단 1년권이 젤 싼걸로 
 }
 
-int main()
+void dfs(int month, int cost)
 {
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
+	if (month > 11)
+	{
+		res = min(res, cost);
+		return;
+	}
+	dfs(month + 1, cost + min(plans[month] * prices[0],prices[1]));
+	dfs(month + 3, cost + prices[2]);
 
-    cin >> T;
+}
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
 
-    for (int tc = 1; tc <= T; tc++)
-    {
-        for (int i = 0; i < 4; i++) cin >> price[i];
-        for (int i = 1; i <= 12; i++) cin >> plan[i];
+	cin >> T;
+	for (int tc = 1; tc <= T; tc++)
+	{
+		init();
+		dfs(0, 0);
 
-        res = price[3];
-
-        dfs(0, 0);
-
-        cout << "#" << tc << " " << res << "\n";
-    }
-
-    return 0;
+		cout << "#" << tc << " " << res << "\n";
+	}
+	return 0;
 }
