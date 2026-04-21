@@ -1,83 +1,68 @@
 #include <iostream>
-#include<vector>
-#include<algorithm>
+#include <vector>
 using namespace std;
 
-int N, res;
-vector<vector<int>>board(19, vector<int>(19));
-bool done = false;
+vector<vector<int>> board(19, vector<int>(19));
 
-void row(int r, int c, int cur)
+bool row(int r, int c, int cur)
 {
-	for (int i = -2; i <= 2; i++)
-	{
+	for (int i = -2; i <= 2; i++) {
 		if (board[r + i][c] != cur)
-			return;
+			return false;
 	}
-	cout << cur << "\n" << r + 1 << " " << c + 1;
-	done = true;
-	return;
+	return true;
 }
-void col(int r, int c, int cur)
+
+bool col(int r, int c, int cur)
 {
-	for (int i = -2; i <= 2; i++)
-	{
+	for (int i = -2; i <= 2; i++) {
 		if (board[r][c + i] != cur)
-			return;
+			return false;
 	}
-	cout << cur << "\n" << r + 1 << " " << c + 1;
-	done = true;
-	return;
+	return true;
 }
-void dia(int r, int c, int cur)
+
+bool dia(int r, int c, int cur)
 {
-	for (int i = -2; i <= 2; i++)
-	{
+	for (int i = -2; i <= 2; i++) {
 		if (board[r + i][c + i] != cur)
-			return;
+			return false;
 	}
-	cout << cur << "\n" << r + 1 << " " << c + 1;
-	done = true;
-	return;
-
+	return true;
 }
-void dia2(int r, int c, int cur)
+
+bool dia2(int r, int c, int cur)
 {
-	for (int i = -2; i <= 2; i++)
-	{
+	for (int i = -2; i <= 2; i++) {
 		if (board[r - i][c + i] != cur)
-			return;
+			return false;
 	}
-	cout << cur << "\n" << r + 1 << " " << c + 1;
-	done = true;
-	return;
-
+	return true;
 }
-int main() {
 
+int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	for (int i = 0; i < 19; i++)
-	{
-		for (int j = 0; j < 19; j++)
-		{
+	for (int i = 0; i < 19; i++) {
+		for (int j = 0; j < 19; j++) {
 			cin >> board[i][j];
 		}
 	}
-	for (int i = 2; i < 17; i++)
-		for (int j = 2; j < 17; j++)
-		{
-			if (done == false && board[i][j] != 0)
-			{
-				int cur = board[i][j];
-				row(i, j, cur);
-				col(i, j, cur);
-				dia(i, j, cur);
-				dia2(i, j, cur);
+
+	for (int i = 2; i < 17; i++) {
+		for (int j = 2; j < 17; j++) {
+			if (board[i][j] == 0) continue;
+
+			int cur = board[i][j];
+
+			if (row(i, j, cur) || col(i, j, cur) || dia(i, j, cur) || dia2(i, j, cur)) {
+				cout << cur << "\n" << i + 1 << " " << j + 1;
+				return 0;
 			}
 		}
-	if (done == false)
-		cout << 0;
+	}
+
+	cout << 0;
 	return 0;
 }
