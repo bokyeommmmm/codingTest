@@ -6,36 +6,36 @@ vector<vector<int>> board(19, vector<int>(19));
 
 bool row(int r, int c, int cur)
 {
+	if (r - 2 < 0 || r + 2 >= 19) return false;
 	for (int i = -2; i <= 2; i++) {
-		if (board[r + i][c] != cur)
-			return false;
+		if (board[r + i][c] != cur) return false;
 	}
 	return true;
 }
 
 bool col(int r, int c, int cur)
 {
+	if (c - 2 < 0 || c + 2 >= 19) return false;
 	for (int i = -2; i <= 2; i++) {
-		if (board[r][c + i] != cur)
-			return false;
+		if (board[r][c + i] != cur) return false;
 	}
 	return true;
 }
 
 bool dia(int r, int c, int cur)
 {
+	if (r - 2 < 0 || r + 2 >= 19 || c - 2 < 0 || c + 2 >= 19) return false;
 	for (int i = -2; i <= 2; i++) {
-		if (board[r + i][c + i] != cur)
-			return false;
+		if (board[r + i][c + i] != cur) return false;
 	}
 	return true;
 }
 
 bool dia2(int r, int c, int cur)
 {
+	if (r - 2 < 0 || r + 2 >= 19 || c - 2 < 0 || c + 2 >= 19) return false;
 	for (int i = -2; i <= 2; i++) {
-		if (board[r - i][c + i] != cur)
-			return false;
+		if (board[r - i][c + i] != cur) return false;
 	}
 	return true;
 }
@@ -50,8 +50,8 @@ int main() {
 		}
 	}
 
-	for (int i = 2; i < 17; i++) {
-		for (int j = 2; j < 17; j++) {
+	for (int i = 0; i < 19; i++) {
+		for (int j = 0; j < 19; j++) {
 			if (board[i][j] == 0) continue;
 
 			int cur = board[i][j];
