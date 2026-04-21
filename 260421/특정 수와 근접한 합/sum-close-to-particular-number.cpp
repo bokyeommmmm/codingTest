@@ -1,45 +1,36 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 using namespace std;
-
-int N, S, res;
-vector<int> arr;
-vector<int> arr2;
-
-void dfs(int idx, int cnt)
-{
-    if (idx == N)
-    {
-        if (cnt == 2)
-        {
-            int sum = 0;
-            for (int i = 0; i < N - 2; i++)
-            {
-                sum += arr2[i];
-            }
-            res = min(res, abs(sum - S));
-        }
-        return;
-    }
-    arr2.push_back(arr[idx]);
-    dfs(idx + 1, cnt);
-    arr2.pop_back();
-    dfs(idx + 1, cnt + 1);
-}
 
 int main()
 {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int N, S;
     cin >> N >> S;
-    res = 1000000000;
+
+    vector<int> arr(N);
+    int total = 0;
 
     for (int i = 0; i < N; i++)
     {
-        int temp;
-        cin >> temp;
-        arr.push_back(temp);
+        cin >> arr[i];
+        total += arr[i];
     }
-    dfs(0, 0);
+
+    int res = 1000000000;
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = i + 1; j < N; j++)
+        {
+            int remain = total - arr[i] - arr[j];
+            res = min(res, abs(remain - S));
+        }
+    }
 
     cout << res;
     return 0;
