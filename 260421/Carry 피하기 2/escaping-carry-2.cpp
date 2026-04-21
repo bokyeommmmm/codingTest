@@ -4,6 +4,7 @@
 using namespace std;
 
 int N, res;
+res = -1;
 vector<int>arr;
 
 void test(int a, int b, int c)
