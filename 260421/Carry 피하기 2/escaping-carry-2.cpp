@@ -4,7 +4,6 @@
 using namespace std;
 
 int N, res;
-res = -1;
 vector<int>arr;
 
 void test(int a, int b, int c)
@@ -27,6 +26,7 @@ int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cin >> N;
+	res = -1;
 
 	for (int i = 0; i < N; i++)
 	{
