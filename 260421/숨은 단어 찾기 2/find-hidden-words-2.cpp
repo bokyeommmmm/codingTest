@@ -52,7 +52,7 @@ int main() {
 	}
 	for (int i = 0; i < N-2; i++)
 	{
-		for (int j = 0; j < N-2; j++)
+		for (int j = 0; j < M-2; j++)
 		{
 			if (board[i][j] == 'L'&&board[i + 1][j + 1] == 'E'&&board[i + 2][j + 2] == 'E')
 				res++;
