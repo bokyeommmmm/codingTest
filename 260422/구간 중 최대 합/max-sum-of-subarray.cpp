@@ -18,7 +18,7 @@ int main() {
 		cin >> temp;
 		arr.push_back(temp);
 	}
-	for (int i = 0; i < N-K; i++)
+	for (int i = 0; i < N-K+1; i++)
 	{
 		int sum = 0;
 		for (int j = 0; j < K; j++)
