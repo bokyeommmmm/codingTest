@@ -1,36 +1,44 @@
 #include <iostream>
-#include<vector>
+#include <vector>
+#include <algorithm> // max, min 함수를 위해 추가
+
 using namespace std;
 
-int N, K, res, maxAmt;
-vector<int>arr;
+int N, K, maxAmt;
+vector<int> arr;
+
 int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 
 	cin >> N >> K;
+
 	arr.assign(101, 0);
-	for (int i = 0; i < N; i++)
-	{
-		int pos, amt;
+
+	for (int i = 0; i < N; i++) {
+		int amt, pos;
 		cin >> amt >> pos;
-		arr[pos] += amt;
+		if (pos <= 100) {
+			arr[pos] += amt;
+		}
 	}
 
-	for (int i = 1+K; i < 100-K; i++) //i : 증심 위치. 
-	{
+	for (int i = 0; i <= 100; i++) {
 		int sum = 0;
-		for (int j = i-K; j <= i+K; j++)
-		{
+
+		int start = max(0, i - K);
+		int end = min(100, i + K);
+
+		for (int j = start; j <= end; j++) {
 			sum += arr[j];
 		}
-		if (maxAmt < sum)
-		{
-			res = i;
+
+		if (maxAmt < sum) {
 			maxAmt = sum;
 		}
 	}
 
 	cout << maxAmt;
+
 	return 0;
 }
